@@ -1,6 +1,6 @@
 import { Equal, Expect } from "../helpers/type-utils";
 
-export const asConst = <T>(t: T) => t;
+export const asConst = <const T>(t: T) => t;
 
 const fruits = asConst([
   {
@@ -25,8 +25,8 @@ type tests = [
         {
           readonly name: "banana";
           readonly price: 2;
-        }
+        },
       ]
     >
-  >
+  >,
 ];

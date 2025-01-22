@@ -1,11 +1,27 @@
 import { expect, it } from "vitest";
 import { z } from "zod";
 
-const makeZodSafeFunction = (
-  schema: unknown,
-  func: (arg: unknown) => unknown
+// My solution
+const makeZodSafeFunction2 = <
+  TSchema extends z.ZodTypeAny,
+  TArgs extends z.infer<TSchema>,
+  TResult,
+>(
+  schema: TSchema,
+  func: (args: TArgs) => TResult
 ) => {
-  return (arg: unknown) => {
+  return (arg: TArgs) => {
+    const result = schema.parse(arg);
+    return func(result);
+  };
+};
+
+// Matt's solution solution
+const makeZodSafeFunction = <TArgs, TResult>(
+  schema: z.Schema<TArgs>,
+  func: (args: TArgs) => TResult
+) => {
+  return (arg: TArgs) => {
     const result = schema.parse(arg);
     return func(result);
   };

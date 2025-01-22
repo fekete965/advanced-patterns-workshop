@@ -4,7 +4,15 @@ import { Brand } from "../helpers/Brand";
 type Password = Brand<string, "Password">;
 type Email = Brand<string, "Email">;
 
-export const validateValues = (values: { email: string; password: string }) => {
+type ValidatedValues = {
+  email: Email;
+  password: Password;
+};
+
+export const validateValues = (values: {
+  email: string;
+  password: string;
+}): ValidatedValues => {
   if (!values.email.includes("@")) {
     throw new Error("Email invalid");
   }
@@ -15,10 +23,10 @@ export const validateValues = (values: { email: string; password: string }) => {
   return {
     email: values.email,
     password: values.password,
-  };
+  } as ValidatedValues;
 };
 
-const createUserOnApi = (values: { email: Email; password: Password }) => {
+const createUserOnApi = (values: ValidatedValues) => {
   // Imagine this function creates the user on the API
 };
 

@@ -10,4 +10,22 @@ import React from "react";
  * to check out React's type definitions.
  */
 
-const element = <custom-element>hello world</custom-element>;
+declare global {
+  namespace JSX {
+    interface CustomElementProps
+      extends React.DetailedHTMLProps<
+        React.HTMLAttributes<CustomElementProps>,
+        CustomElementProps
+      > {
+      requiredProp: boolean;
+    }
+
+    interface IntrinsicElements {
+      "custom-element": CustomElementProps;
+    }
+  }
+}
+
+const element = (
+  <custom-element requiredProp={false}>hello world</custom-element>
+);

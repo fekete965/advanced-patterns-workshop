@@ -10,8 +10,8 @@ import { doNotExecute, Equal, Expect } from "../helpers/type-utils";
  * 2. Take a look at the typings for _.groupBy to
  * see if you can understand them.
  */
-const groupByAge = (array: unknown[]) => {
-  const grouped = _.groupBy(array, "age");
+const groupByAge = <TData extends { age: number }>(array: TData[]) => {
+  const grouped = _.groupBy(array, (d) => d.age);
 
   return grouped;
 };
@@ -52,7 +52,7 @@ it("Should group the items by age", () => {
   });
 
   type tests = [
-    Expect<Equal<typeof result, _.Dictionary<{ name: string; age: number }[]>>>
+    Expect<Equal<typeof result, _.Dictionary<{ name: string; age: number }[]>>>,
   ];
 });
 

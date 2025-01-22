@@ -5,10 +5,12 @@ class Form<TValues> {
 
   constructor(
     public values: TValues,
-    private validate: (values: TValues) => string | void,
+    private validate: (values: TValues) => string | void
   ) {}
 
-  isInvalid() {
+  // isInvalid(): this is Form<TValues> & { error: string } {
+  // Funkier type guard: this is this wth? haha
+  isInvalid(): this is this & { error: string } {
     const result = this.validate(this.values);
 
     if (typeof result === "string") {
@@ -34,7 +36,7 @@ const form = new Form(
     if (!values.password) {
       return "Password is required";
     }
-  },
+  }
 );
 
 if (form.isInvalid()) {

@@ -6,9 +6,13 @@ import { Equal, Expect, ExpectExtends } from "../helpers/type-utils";
  * to extend the types. Extract the types below.
  */
 
-type ParametersOfFetchUser = unknown;
+type FetchUserFn = typeof fetchUser;
 
-type ReturnTypeOfFetchUserWithFullName = unknown;
+type ParametersOfFetchUser = Parameters<FetchUserFn>;
+
+type ReturnTypeOfFetchUserWithFullName = Awaited<ReturnType<FetchUserFn>> & {
+  fullName: string;
+};
 
 export const fetchUserWithFullName = async (
   ...args: ParametersOfFetchUser

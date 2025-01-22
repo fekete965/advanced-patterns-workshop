@@ -1,6 +1,12 @@
 import { Equal, Expect } from "../helpers/type-utils";
 
-export function makeEventHandlers(obj: unknown) {
+type MappedObject<TObject extends {}> = {
+  [K in keyof TObject]: (arg: K) => void;
+};
+
+export function makeEventHandlers<TObject extends {}>(
+  obj: MappedObject<TObject>
+) {
   return obj;
 }
 
